@@ -1,0 +1,13 @@
+{
+  "apiFolder": "pages/api",
+  "schemaFolders": [
+    "models"
+  ],
+  "definition": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "TBD_Health Partner Service",
+      "version": "1.0"
+    }
+  }
+}

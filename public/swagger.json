@@ -1,0 +1,247 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TBD_Health Partner Service",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get an order by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The ID of the order to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "The auto-generated ID of the order"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the kit"
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "description": "Quantity of the order"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Price of the order"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "ABC123",
+                  "name": "Test Order",
+                  "quantity": 10,
+                  "price": 1234
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "getOrderById"
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Update an order by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The ID of the order to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the kit"
+                  },
+                  "quantity": {
+                    "type": "number",
+                    "description": "Quantity of the order"
+                  },
+                  "price": {
+                    "type": "number",
+                    "description": "Price of the order"
+                  }
+                }
+              },
+              "example": {
+                "name": "Updated Order",
+                "quantity": 20,
+                "price": 2000
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order updated successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "updateOrderById"
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Delete an order by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The ID of the order to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Order deleted successfully"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "operationId": "deleteOrderById"
+      }
+    },
+    "/api/orders/postOrder": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Create a new order",
+        "responses": {
+          "201": {
+            "description": "Order Placed Successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../../../src/models/Orders/Order"
+              },
+              "example": {
+                "id": "ABC123",
+                "recipient": {
+                  "id": "XYZ456"
+                },
+                "shipping": {
+                  "id": "SHIP789",
+                  "name": "Express Shipping",
+                  "minTime": 2,
+                  "maxTime": 5,
+                  "timeUnit": "DAYS"
+                },
+                "products": {
+                  "id": "PROD789",
+                  "variantId": "VAR123",
+                  "qty": 10,
+                  "name": "Test Order",
+                  "type": "AT_HOME_TEST_KIT"
+                },
+                "shippingAddress": {
+                  "street1": "123 Street",
+                  "street2": "Apt 4B",
+                  "city": "New York",
+                  "state": "NY",
+                  "zip": 10001,
+                  "country": "United States"
+                },
+                "metadata": [
+                  {
+                    "key": "key1",
+                    "value": "value1"
+                  },
+                  {
+                    "key": "key2",
+                    "value": "value2"
+                  }
+                ],
+                "status": "PENDING",
+                "kitId": "KIT123",
+                "parentOrderId": "PARENT456",
+                "preferBulkShipping": true
+              }
+            }
+          }
+        },
+        "operationId": "createOrder"
+      }
+    },
+    "/api/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
